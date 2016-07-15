@@ -1,7 +1,7 @@
 ## Title: Info
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -9,11 +9,26 @@
 
 #### Parameters:
 
+__target__
+	What you would like information on. Possible values: workspace, warehouse, project
+
+__target-id__
+	The slug or ID of the target you'd like info on:
+	* workspace: slug or ID
+	* warehouse: slug or ID
+	* project: ID
+
 #### Return Value:
+	Returns an object with relevant information about the target.
 
 ### Examples
 
 ```
+t info workspace segment
+
+t info warehouse OmLu2v3BEm
+
+t info project 9K2CM0i1h4
 
 ```
 
@@ -29,7 +44,7 @@ _______________
 ## Title: Report
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -57,7 +72,7 @@ _______________
 ## Title: Task Status
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -65,11 +80,36 @@ _______________
 
 #### Parameters:
 
+__target__
+	What you would like to check the status of:
+	* source
+	* conneector
+	* workspace: slug
+
+__running__
+	Optional. Allows you to filter by what is currently running.
+
+__failed__
+	Optional. Allows you to filter by what failed.
+
+__hanging__
+	Optional. Allows you to filter by what is hanging.
+
+__tail__
+	Optional.
+
+__kill__
+	Optional.
+
+
 #### Return Value:
+	Will return a list of objects, broken out by source.
 
 ### Example:
 
 ```
+t task status --workspace=segment --running
+
 
 ```
 
@@ -85,7 +125,7 @@ _______________
 ## Title: Source Runner - Run
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -93,12 +133,21 @@ _______________
 
 #### Parameters:
 
+__workspace__
+	Workspace slug.
+
+__force__
+	Optional. This flag will stop any sync that is currently running for the source and start a new one.
+
+__option__
+	Optional.
+
 #### Return Value:
 
 ### Example:
 
 ```
-
+t task force-run source --workspace=segment --force
 ```
 
 #### How to find it:
@@ -113,7 +162,7 @@ _______________
 ## Title: Warehouse Connector - Run
 ### Warnings
 
-> 
+> If this command is run with the --force flag and a sync is currently running, it will stop the sync and an the following error message will appear in the UI for that run: "Application terminated"
 
 ### Syntax
 
@@ -121,12 +170,34 @@ _______________
 
 #### Parameters:
 
+__target__
+	* workspace: slug
+	* project: id
+
+__force__
+	Optional. This flag will stop any sync that is currently running for the source and start a new one.
+
+__option__
+	Optional.
+	* REPLAY_MODE: full or range
+	* REPLAY_FROM: "YYYY-MM-DD"
+	* REPLAY_TO: "YYYY-MM-DD"
+	* SOURCE_FILTER: objects or events
+	* COLLECTION_FILTER: table name
+		* you can select multiple tables with the following syntax: "\(table_one\|table_two\|table_three\)"
+
+
 #### Return Value:
+	Object with run info.
 
 ### Example:
 
 ```
+t task force-run connector --project=GroKT0tUsy --force
 
+t task force-run connector --option=REPLAY_MODE=full --option=SOURCE_FILTER=objects --option=COLLECTION_FILTER=users --workspace=segment --force
+
+t task force-run connector --option=SOURCE_FILTER=events --option=COLLECTION_FILTER="\(tracks\|data_sent\|identifies\)" --project=GroKT0tUsy --force
 ```
 
 #### How to find it:
@@ -141,7 +212,9 @@ _______________
 ## Title: Replay - Run
 ### Warnings
 
-> 
+> This will run backfills on the expiramental connector. Be aware of how many containers are currently being used before running. If you run this command for a workspace, it will allocate max-containers to EACH source. For example if you have 10 sources, and run the command with --max-containers=20, you will use 200 containers.
+
+At the moment, the expiramental connector will only work on events, not objects.
 
 ### Syntax
 
@@ -149,11 +222,52 @@ _______________
 
 #### Parameters:
 
+__target__
+	* workspace: slug
+	* project: id
+
+__range__
+	* full
+	* from: YYYY-MM-DD
+	* to: YYYY-MM-DD
+
+__cluster-id__
+	Optional.
+
+__max-containers__
+	Optional. Integer. Default is 30.
+
+__exclude-project__
+	Optional.
+
+__max-error__
+	Optional.
+
+__notify__
+	Optional. Slack username. Replays run on the expiraental connector will post when they start and finish in the #alerts-replay channel. This flag will @slack_username in the channel when the replay starts and finishes.
+
+__collection-filter__
+	Optional. Table name.
+
+__scan-events-mode__
+	Optional.
+
+__force-reporting__
+	Optional.
+
+__beta__
+	Optional.
+
+
 #### Return Value:
+	Object with run info.
 
 ### Example:
 
 ```
+t task replay run --workspace=segment --from=2016-01-01 --to=2016-02-15 --max-containers=5
+
+t task replay run --project=GroKT0tUsy --full --notify=noonan
 
 ```
 
@@ -169,7 +283,7 @@ _______________
 ## Title: Replay - Status
 ### Warnings
 
-> 
+> This will give you the status of backfills that were run on the expiramental connector.
 
 ### Syntax
 
@@ -177,12 +291,24 @@ _______________
 
 #### Parameters:
 
+__project__
+	Optional. Source ID.
+
+__running__
+	Optional.
+
+__filter__
+	Optional.
+
 #### Return Value:
+	List of objects with backfill info.
 
 ### Example:
 
 ```
+t task replay status
 
+t task replay status --project=GroKT0tUsy
 ```
 
 #### How to find it:
@@ -197,13 +323,19 @@ _______________
 ## Title: Vacuum Redshift - Run
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
 > `tool task redshift-vacuum run --workspace=<workspace> [--query-slots=<number>] [--enable-deep-copy=<bool>]`
 
 #### Parameters:
+
+__workspace__
+	Workspace slug
+
+__query-slots__
+	Optional. Integer
 
 #### Return Value:
 
@@ -225,7 +357,7 @@ _______________
 ## Title: Vacuum Redshift - Status
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -253,7 +385,7 @@ _______________
 ## Title: Redshift Migration Validator
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -281,7 +413,7 @@ _______________
 ## Title: Redshift Version Validator
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -309,7 +441,7 @@ _______________
 ## Title: Redshift Migration Status
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -337,7 +469,7 @@ _______________
 ## Title: Redshift Migrate
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -365,7 +497,7 @@ _______________
 ## Title: Redshift Events - Range
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -393,7 +525,7 @@ _______________
 ## Title: Redshift Schema
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -421,7 +553,7 @@ _______________
 ## Title: Events Index Backfill
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -449,7 +581,7 @@ _______________
 ## Title: Scan Users
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -477,7 +609,7 @@ _______________
 ## Title: Task Logs
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -505,7 +637,7 @@ _______________
 ## Title: Task Scheduler
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -533,7 +665,7 @@ _______________
 ## Title: Task Describe
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -561,7 +693,7 @@ _______________
 ## Title: Task Stop
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -589,7 +721,7 @@ _______________
 ## Title: Source Logs
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -617,7 +749,7 @@ _______________
 ## Title: ECS Logs
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -645,7 +777,7 @@ _______________
 ## Title: PSQL
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -673,7 +805,7 @@ _______________
 ## Title: PGCLI - pretty PSQL
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -701,7 +833,7 @@ _______________
 ## Title: Get User
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -729,7 +861,7 @@ _______________
 ## Title: User Backfill Counts
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -757,7 +889,7 @@ _______________
 ## Title: Events Scan
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -785,7 +917,7 @@ _______________
 ## Title: Billing Scan
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -813,7 +945,7 @@ _______________
 ## Title: Add Custom Salesforce Objects
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -841,7 +973,7 @@ _______________
 ## Title: Set Connector Frequency
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -869,7 +1001,7 @@ _______________
 ## Title: Get Object
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -897,7 +1029,7 @@ _______________
 ## Title: Warehouse Properties Blacklist
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -925,7 +1057,7 @@ _______________
 ## Title: Warehouse Collection Blacklist
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -953,7 +1085,7 @@ _______________
 ## Title: Delete Schema
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -981,7 +1113,7 @@ _______________
 ## Title: Cleanup - Reports
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -1009,7 +1141,7 @@ _______________
 ## Title: Cleanup - Database
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -1037,7 +1169,7 @@ _______________
 ## Title: Cleanup - Tables
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -1065,7 +1197,7 @@ _______________
 ## Title: Cleanup - Warehouse Billing
 ### Warnings
 
-> 
+>
 
 ### Syntax
 
@@ -1110,4 +1242,3 @@ _______________
 ###### last updated: Jun 30, 2016
 
 _______________
-
