@@ -9,17 +9,17 @@
 
 #### Parameters:
 
-__target__
-	What you would like information on. Possible values: workspace, warehouse, project
+_target_
+What you would like information on. Possible values: workspace, warehouse, project
 
-__target-id__
-	The slug or ID of the target you'd like info on:
-	* workspace: slug or ID
-	* warehouse: slug or ID
-	* project: ID
+_target-id_
+The slug or ID of the target you'd like info on:
+* workspace: slug or ID
+* warehouse: slug or ID
+* project: ID
 
 #### Return Value:
-	Returns an object with relevant information about the target.
+Returns an object with relevant information about the target.
 
 ### Examples
 
@@ -29,14 +29,13 @@ t info workspace segment
 t info warehouse OmLu2v3BEm
 
 t info project 9K2CM0i1h4
-
 ```
 
 #### How to find it:
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -80,36 +79,35 @@ _______________
 
 #### Parameters:
 
-__target__
-	What you would like to check the status of:
-	* source
-	* conneector
-	* workspace: slug
+_target_
+What you would like to check the status of:
+* source
+* connector
+* workspace: slug
 
-__running__
-	Optional. Allows you to filter by what is currently running.
+_running_
+Optional. Allows you to filter by what is currently running.
 
-__failed__
-	Optional. Allows you to filter by what failed.
+_failed_
+Optional. Allows you to filter by what failed.
 
-__hanging__
-	Optional. Allows you to filter by what is hanging.
+_hanging_
+Optional. Allows you to filter by what is hanging.
 
-__tail__
-	Optional.
+_tail_
+Optional.
 
-__kill__
-	Optional.
+_kill_
+Optional.
 
 
 #### Return Value:
-	Will return a list of objects, broken out by source.
+Will return a list of objects, broken out by source.
 
 ### Example:
 
 ```
 t task status --workspace=segment --running
-
 
 ```
 
@@ -117,7 +115,7 @@ t task status --workspace=segment --running
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -133,14 +131,14 @@ _______________
 
 #### Parameters:
 
-__workspace__
-	Workspace slug.
+_workspace_
+Workspace slug.
 
-__force__
-	Optional. This flag will stop any sync that is currently running for the source and start a new one.
+_force_
+Optional. This flag will stop any sync that is currently running for the source and start a new one.
 
-__option__
-	Optional.
+_option_
+Optional.
 
 #### Return Value:
 
@@ -170,25 +168,25 @@ _______________
 
 #### Parameters:
 
-__target__
-	* workspace: slug
-	* project: id
+_target_
+* workspace: slug
+* project: id
 
-__force__
-	Optional. This flag will stop any sync that is currently running for the source and start a new one.
+_force_
+Optional. This flag will stop any sync that is currently running for the source and start a new one.
 
-__option__
-	Optional.
-	* REPLAY_MODE: full or range
-	* REPLAY_FROM: "YYYY-MM-DD"
-	* REPLAY_TO: "YYYY-MM-DD"
-	* SOURCE_FILTER: objects or events
-	* COLLECTION_FILTER: table name
-		* you can select multiple tables with the following syntax: "\(table_one\|table_two\|table_three\)"
+_option_
+Optional.
+* REPLAY_MODE: full or range
+* REPLAY_FROM: "YYYY-MM-DD"
+* REPLAY_TO: "YYYY-MM-DD"
+* SOURCE_FILTER: objects or events
+* COLLECTION_FILTER: table name
+	* you can select multiple tables with the following syntax: "\(table_one\|table_two\|table_three\)"
 
 
 #### Return Value:
-	Object with run info.
+Object with run info.
 
 ### Example:
 
@@ -204,7 +202,7 @@ t task force-run connector --option=SOURCE_FILTER=events --option=COLLECTION_FIL
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -222,45 +220,48 @@ At the moment, the expiramental connector will only work on events, not objects.
 
 #### Parameters:
 
-__target__
-	* workspace: slug
-	* project: id
+_target_
+* workspace: slug
+* project: id
 
-__range__
-	* full
-	* from: YYYY-MM-DD
-	* to: YYYY-MM-DD
+_range_
+* full
+* from: YYYY-MM-DD
+* to: YYYY-MM-DD
 
-__cluster-id__
-	Optional.
+_cluster-id_
+Optional.
 
-__max-containers__
-	Optional. Integer. Default is 30.
+_max-containers_
+Optional. 
+Integer. Default is 30.
 
-__exclude-project__
-	Optional.
+_exclude-project_
+Optional.
 
-__max-error__
-	Optional.
+_max-error_
+Optional.
 
-__notify__
-	Optional. Slack username. Replays run on the expiraental connector will post when they start and finish in the #alerts-replay channel. This flag will @slack_username in the channel when the replay starts and finishes.
+_notify_
+Optional. 
+Slack username. Replays run on the expiraental connector will post when they start and finish in the #alerts-replay channel. This flag will @slack_username in the channel when the replay starts and finishes.
 
-__collection-filter__
-	Optional. Table name.
+_collection-filter_
+Optional. 
+Table name.
 
-__scan-events-mode__
-	Optional.
+_scan-events-mode_
+Optional.
 
-__force-reporting__
-	Optional.
+_force-reporting_
+Optional.
 
-__beta__
-	Optional.
+_beta_
+Optional.
 
 
 #### Return Value:
-	Object with run info.
+Object with run info.
 
 ### Example:
 
@@ -268,14 +269,13 @@ __beta__
 t task replay run --workspace=segment --from=2016-01-01 --to=2016-02-15 --max-containers=5
 
 t task replay run --project=GroKT0tUsy --full --notify=noonan
-
 ```
 
 #### How to find it:
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -291,17 +291,18 @@ _______________
 
 #### Parameters:
 
-__project__
-	Optional. Source ID.
+_project_
+Optional. 
+Source ID.
 
-__running__
-	Optional.
+_running_
+Optional.
 
-__filter__
-	Optional.
+_filter_
+Optional.
 
 #### Return Value:
-	List of objects with backfill info.
+List of objects with backfill info.
 
 ### Example:
 
@@ -315,7 +316,7 @@ t task replay status --project=GroKT0tUsy
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -331,25 +332,27 @@ _______________
 
 #### Parameters:
 
-__workspace__
-	Workspace slug
+_workspace_
+Workspace slug
 
-__query-slots__
-	Optional. Integer
+_query-slots_
+Optional. 
+Integer
 
 #### Return Value:
+Object with vacuum info
 
 ### Example:
 
 ```
-
+t task redshift-vacuum run --workspace=segment
 ```
 
 #### How to find it:
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -365,19 +368,24 @@ _______________
 
 #### Parameters:
 
+_running_ Optional.
+
+_filter_ Optional.
+
 #### Return Value:
+List of currently running vacuums and their relevant info
 
 ### Example:
 
 ```
-
+t task redshift-vacuum status
 ```
 
 #### How to find it:
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -393,19 +401,22 @@ _______________
 
 #### Parameters:
 
-#### Return Value:
+_workspace_
+Workspace slug
 
+#### Return Value:
+Object with relevant info and a report will be generated in the alerts-rs-validator slack channel
 ### Example:
 
 ```
-
+t task redshift-validate-v1-v3 --workspace=segment
 ```
 
 #### How to find it:
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -420,8 +431,35 @@ _______________
 > `tool task redshift-validate --workspace=<workspace> --old-hostname=<v> --old-user=<v> --old-password=<v> --old-database=<v> --new-hostname=<v> --new-user=<v> --new-password=<v> --new-database=<v>`
 
 #### Parameters:
+_workspace_
+Workspace slug
+
+_old-hostname_
+Original cluster hostname
+
+_old-user_
+Original cluster user
+
+_old-password_
+Original cluster password
+
+_old-database_
+Original DB name
+
+_new-hostname_
+New cluster hostname
+
+_new-user_
+New cluster user
+
+_new-password_
+New cluster password
+
+_new-database_
+New DB name
 
 #### Return Value:
+Object with relevant info and a report will be generated in the alerts-rs-validator slack channel
 
 ### Example:
 
@@ -430,10 +468,11 @@ _______________
 ```
 
 #### How to find it:
+To find the relevant cluster information, you can use `t info warehouse <slug>`.
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -533,19 +572,28 @@ _______________
 
 #### Parameters:
 
+_workspace_
+Workspace slug
+
+_project_ Optional.
+Project ID
+
 #### Return Value:
+Object with relevant info.
 
 ### Example:
 
 ```
+t task redshift-schema --workspace=segment --match-columns
 
+t task redshift-schema --workspace=segment --match-schemas
 ```
 
 #### How to find it:
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -561,19 +609,22 @@ _______________
 
 #### Parameters:
 
+_workspace_
+Workspace slug
+
 #### Return Value:
 
 ### Example:
 
 ```
-
+t task events-index-backfill --workspace=segment
 ```
 
 #### How to find it:
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -589,12 +640,23 @@ _______________
 
 #### Parameters:
 
+_workspace_
+Workspace slug
+
+_from_ Optional.
+YYYY-MM-DD
+
+_to_ Optional.
+YYYY-MM-DD
+
 #### Return Value:
 
 ### Example:
 
 ```
+t task scan-users --workspace=segment
 
+t task scan-users --workspace=segment --from=2016-01-01 --to=2016-09-01
 ```
 
 #### How to find it:
@@ -617,19 +679,26 @@ _______________
 
 #### Parameters:
 
+_id_
+Task ID
+
+_tail_ Optional.
+Integer
+
 #### Return Value:
+Logs for the task
 
 ### Example:
 
 ```
-
+t task logs arn:aws:ecs:us-west-2:752180062774:task/350a73af-b9c0-4beb-a704-7a13b4d804b6 --tail=10
 ```
 
 #### How to find it:
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -701,19 +770,22 @@ _______________
 
 #### Parameters:
 
+_id_
+Task ID
+
 #### Return Value:
 
 ### Example:
 
 ```
-
+t task stop arn:aws:ecs:us-west-2:752180062774:task/350a73af-b9c0-4beb-a704-7a13b4d804b6
 ```
 
 #### How to find it:
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -757,12 +829,15 @@ _______________
 
 #### Parameters:
 
+_task-arn_
+Task Id
+
 #### Return Value:
 
 ### Example:
 
 ```
-
+t task ecs-logs arn:aws:ecs:us-west-2:752180062774:task/350a73af-b9c0-4beb-a704-7a13b4d804b6
 ```
 
 #### How to find it:
@@ -785,19 +860,23 @@ _______________
 
 #### Parameters:
 
+_workspace_
+Slug
+
 #### Return Value:
+Prompt to which warehouse you'd like to login to.
 
 ### Example:
 
 ```
-
+t psql segment
 ```
 
 #### How to find it:
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -813,19 +892,23 @@ _______________
 
 #### Parameters:
 
+_workspace_
+Slug
+
 #### Return Value:
+Prompt to which warehouse you'd like to login to.
 
 ### Example:
 
 ```
-
+t pgcli segment
 ```
 
 #### How to find it:
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -889,7 +972,7 @@ _______________
 ## Title: Events Scan
 ### Warnings
 
->
+>No longer available
 
 ### Syntax
 
@@ -909,7 +992,7 @@ _______________
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -953,19 +1036,29 @@ _______________
 
 #### Parameters:
 
-#### Return Value:
+_id_
+Source ID
 
+_add_ Optional.
+Custom object name
+
+_remove_ Optional.
+Custom object name.
+
+#### Return Value:
+List of all the custom object associated with the source.
 ### Example:
 
 ```
-
+t source salesforce custom-object --id=12345678 --add=Lead_Request__c --add=Domain__c
 ```
 
 #### How to find it:
+You can get the source ID from the Zendesk side bar, the UI or Hermes
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -981,12 +1074,20 @@ _______________
 
 #### Parameters:
 
+_workspace_
+Workspace slug.
+
+_duration_
+Integer followed by metric 
+
 #### Return Value:
 
 ### Example:
 
 ```
+t warehouse custom-frequency --workspace=segment 1h
 
+t warehouse custom-frequency --workspace=segment 30m
 ```
 
 #### How to find it:
@@ -1005,23 +1106,32 @@ _______________
 
 ### Syntax
 
-> `tool object get [--source=<source>] --project-id=<project> --collection=<collection> --id=<id>`
+> `tool object get --project-id=<project> --collection=<collection> --id=<id>`
 
 #### Parameters:
+
+_project-id_
+Source ID
+
+_collection_
+Collection or table name
+
+_id_
+ID of the object
 
 #### Return Value:
 
 ### Example:
 
 ```
-
+t object get --project-id=12345678 --collection=invoices --id=in_18apt12WxDQT5z9j
 ```
 
 #### How to find it:
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -1029,7 +1139,7 @@ _______________
 ## Title: Warehouse Properties Blacklist
 ### Warnings
 
->
+>You must append `--dry-run` when first running this to see what you will be blacklisting.
 
 ### Syntax
 
@@ -1037,19 +1147,48 @@ _______________
 
 #### Parameters:
 
+_workspace_
+Workspace Slug
+
+_project_
+Source ID.
+
+_source_
+Source info. 
+If you are blacklisting an event property, the value will be `events`.
+If you are blacklisting an object property, you'll have check infra-mongo for this.
+
+_collection-regex_
+Regex pattern of the table with the properties you'd like to blacklist.
+
+_regex_
+Regex pattern of the properties you'd like to blacklist.
+
+_dry-run_
+Flag that allows you to see what will be blacklisted before you make the change.
+
+_exclude_ Optional.
+Properites you'd like to exclude from the regex pattern.
+
+_enable_ Optional.
+Flag to re-enable properties that have been blacklisted.
+
 #### Return Value:
+List of properties that were blacklisted
 
 ### Example:
 
 ```
+t schema disable-properties --project=gy2d --source=events --collection-regex="tracks" --regex="context_traits_*" --dry-run
 
+t schema disable-properties --workspace=segment --source=projects --collection-regex=".*" --regex="context_traits_*" --dry-run
 ```
 
 #### How to find it:
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
 
@@ -1065,50 +1204,39 @@ _______________
 
 #### Parameters:
 
+_workspace_
+Workspace Slug
+
+_project_
+Source ID.
+
+_source_
+Source info. 
+If you are blacklisting an event property, the value will be `events`.
+If you are blacklisting an object property, you'll have check infra-mongo for this.
+
+_collection-regex_
+Regex pattern of the table with the properties you'd like to blacklist.
+
+_dry-run_
+Flag that allows you to see what will be blacklisted before you make the change.
+
 #### Return Value:
+List of properties that were blacklisted
 
 ### Example:
 
 ```
-
+t schema disable-collections --workspace=segment --source=evnets --collection-regex="tracks" --dry-run
 ```
 
 #### How to find it:
 
 #### See Also:
 
-###### last updated: Jun 30, 2016
+###### last updated: Sept 5, 2016
 
 _______________
-
-
-## Title: Delete Schema
-### Warnings
-
->
-
-### Syntax
-
-> `tool schema delete --project=<project_id> --source=<source_id>`
-
-#### Parameters:
-
-#### Return Value:
-
-### Example:
-
-```
-
-```
-
-#### How to find it:
-
-#### See Also:
-
-###### last updated: Jun 30, 2016
-
-_______________
-
 
 ## Title: Cleanup - Reports
 ### Warnings
